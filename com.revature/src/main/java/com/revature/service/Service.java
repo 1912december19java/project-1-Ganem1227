@@ -54,9 +54,12 @@ public class Service {
     reimb.setNotes(newNote);
   }
   
+  //email, may move to a different class
   public void sendEmail() {
     
   }
+  
+  
   
   
 }

@@ -137,4 +137,28 @@ public class DAOPostgres implements DAO{
     }
   }
 
+  public PreparedStatement stageAndCommitStatement(String statement, Object... objects) {
+    PreparedStatement stmt;
+    
+    try {
+      stmt = conn.prepareStatement(statement);
+      for(int i = 0; i < objects.length; i++) {
+        
+        if(objects[i].getClass().getName().equals("Integer")) {
+          stmt.setInt(i+1, (Integer)objects[i]);
+        }else if(objects[i].getClass().getName().equals("String")) {
+          stmt.setString(i+1, (String)objects[i]);
+        }else if(objects[i].getClass().getName().equals("Double")) {
+          stmt.setDouble(i+1, (Double)objects[i]);
+        }
+      }
+        stmt.execute();
+        return stmt;
+      
+    }catch(SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
 }

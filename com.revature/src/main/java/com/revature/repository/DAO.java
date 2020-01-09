@@ -1,5 +1,6 @@
 package com.revature.repository;
 
+import java.sql.PreparedStatement;
 import com.revature.model.Reimbursement;
 
 public interface DAO {
@@ -15,4 +16,6 @@ public interface DAO {
   public boolean resolveReimbursement(String status, int id);
   
   public boolean testInDatabase(String primaryKey);
+  
+  public PreparedStatement stageAndCommitStatement(String statement, Object... objects );
 }
