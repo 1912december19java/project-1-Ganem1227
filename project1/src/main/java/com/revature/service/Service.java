@@ -1,17 +1,8 @@
 package com.revature.service;
 
-import java.util.Date;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import com.revature.model.Employee;
 import com.revature.model.Reimbursement;
 import com.revature.repository.DAOPostgres;
-import javax.activation.*;
 
 public class Service {
 
@@ -22,7 +13,6 @@ public class Service {
   
   public Service() {
     reimb = new Reimbursement();
-    employee = new Employee();
     dao = new DAOPostgres();
   }
   
@@ -57,6 +47,14 @@ public class Service {
   //email, may move to a different class
   public void sendEmail() {
     
+  }
+
+  public Employee getEmployee() {
+    return employee;
+  }
+
+  public void setEmployee(Employee employee) {
+    this.employee = employee;
   }
   
   

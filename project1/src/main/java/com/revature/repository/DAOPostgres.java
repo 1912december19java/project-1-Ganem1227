@@ -8,7 +8,11 @@ import java.sql.SQLException;
 import com.revature.model.Reimbursement;
 
 public class DAOPostgres implements DAO{
-  Connection conn;
+  static Connection conn;
+  
+  static {
+    
+  }
   
   public DAOPostgres() {
     super();
@@ -29,6 +33,7 @@ public class DAOPostgres implements DAO{
       rs = stmt.getResultSet();
       
       if(rs.next()) {
+        //stmt.close();
         return rs.getInt("id");
       }
     }catch(SQLException e) {
@@ -52,8 +57,10 @@ public class DAOPostgres implements DAO{
       rs = stmt.getResultSet();
       
       if(rs.next()) {
+        stmt.close();
         return rs.getString(field);
       }
+      stmt.close();
     
       return null;
     } catch(SQLException e) {
@@ -72,6 +79,7 @@ public class DAOPostgres implements DAO{
       stmt.setString(4, newEntry.getStatus());
       
       stmt.execute();
+      stmt.close();
       
     }catch(SQLException e) {
       e.printStackTrace();
@@ -91,8 +99,12 @@ public class DAOPostgres implements DAO{
       rs = stmt.getResultSet();
       
       if(rs.next()) {
+        stmt.close();
         return true;
-      }else return false;
+      }else { 
+        stmt.close();
+        return false;
+      }
       
     }catch(SQLException e) {
       
@@ -112,18 +124,29 @@ public class DAOPostgres implements DAO{
       rs = stmt.getResultSet();
       
       if(rs.next()) {
+        stmt.close();
         return true;
-      }else return false;
-      
-      
+      }else {
+        stmt.close();
+        return false;
+      }
       
     }catch(SQLException e) {
       e.printStackTrace();
+    } finally {
+      
     }
+    
     return false;
   }
 
   public void establishConnection() {
+    try {
+      Class.forName("org.postgresql.Driver");
+  } catch (ClassNotFoundException e1) {
+      e1.printStackTrace();
+  }
+    
     try {
       conn = DriverManager.getConnection(
           System.getenv("AWS_URL"), 
@@ -132,7 +155,7 @@ public class DAOPostgres implements DAO{
           );
       System.out.println("CONNECTED");
     }catch(SQLException e) {
-      //e.printStackTrace();
+      e.printStackTrace();
       System.out.println("CONNECTION FAILED");
     }
   }
@@ -159,6 +182,14 @@ public class DAOPostgres implements DAO{
       e.printStackTrace();
     }
     return null;
+  }
+  
+  public void closeAllConnections() {
+    try {
+      conn.close();
+    }catch(SQLException e) {
+      e.printStackTrace();
+    }
   }
 
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Employee Information</title>
+
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/defaultNavbarStyle.css">
+    <link rel="stylesheet" href="CSS/infoPage.css">
+    <link rel = "icon" href = "Images/RevatureLogo.png" type = "image/x-icon"> 
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-sm navbar-fixed-top" id="default-navbar">
+        <div class="container">
+            <a class="navbar-branch" href="https://revature.com/">
+                <img id="logo" class="img-fluid" src="Images/logo.png" alt="Revature.png">
+            </a>
+            <div>
+                <ul class="navbar-nav nav-pills">
+                    <li class="navbar-item"><a href="EmployeeInfo.html" class="nav-link active">Profile</a></li>
+                    <li class="navbar-item"><a class="nav-link" href="Reimburse.html">Reimbursements</a></li>
+                    <li class="navbar-item"><a class="nav-link logout" href="index.html">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Header-->
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome, <span class="employee-welcome">EMPLOYEE_NAME</span></h1>
+        </div>
+    </header>
+
+    <!--Content-->
+    <main>
+        <div class="row justify-content-center">
+            <div class="col-sm-10 content-panel">
+                <div class="info-container">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><p class="info-fields">Name: </p></td>
+                                <td><p id="name">EMPLOYEE_NAME</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="info-fields">Job Title: </p></td>
+                                <td><p id="job">JOB_TITLE</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="info-fields">Email: </p></td>
+                                <td><p id="email">EMAIL</p></td>
+                            </tr>
+                            <tr>
+                                <td><p class="info-fields">Manager: </p></td>
+                                <td><p id="manager">MANAGER_NAME</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>  
+            </div>
+        </div>
+    </main>
+    
+</body>
+</html>

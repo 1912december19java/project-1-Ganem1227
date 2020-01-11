@@ -7,6 +7,8 @@ public class Employee {
   private int employeeId;
   private String job;
   private int managerId;
+  private String username;
+  private String password;
   
   public Employee() {
     super();
@@ -14,6 +16,8 @@ public class Employee {
     lastName = "";
     email = "";
     job = "";
+    employeeId = -1;
+    managerId = -1;
   }
 
   public void clearAllFields() {
@@ -73,6 +77,33 @@ public class Employee {
   public void setManagerId(int managerId) {
     this.managerId = managerId;
   }
+  
+  
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  @Override
+  public String toString() {
+    return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+        + ", employeeId=" + employeeId + ", job=" + job + ", managerId=" + managerId + ", username="
+        + username + ", password=" + password + "]";
+  }
+
+  
   
   
 }

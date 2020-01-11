@@ -5,12 +5,11 @@ import com.revature.service.Service;
 
 public class Controller {
   private static Scanner in = new Scanner(System.in);
-  private Service service;
+  public static Service service = new Service();
   private boolean finish;
   
   public Controller() {
     super();
-    service = new Service();
     finish = false;
   }
   
@@ -27,4 +26,6 @@ public class Controller {
   public void testGenericSql() {
     
   }
+  
+  
 }

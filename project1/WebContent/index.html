@@ -37,21 +37,20 @@
 
     <!--CONTENT-->
     <br>
-    <div class="row">
-        <div class="col-sm-4"></div>
+    <div class="row justify-content-center">
         <div class="col-sm-4">
-            <form class="prompt-sq">
+            <form class="prompt-sq" method="GET" action="http://localhost:8080/project1/login">
                 <h5>Sign In</h5><br>
                 <label for="username">Username</label><br>
-                <input class="form-control login-fields" type="text" name="username"> <br>
+                <input id="login-user" class="form-control login-fields" type="text" name="username"> <br>
                 <label for="password">Password </label><br>
-                <input class="form-control login-fields" type="text" name="password"><br>
+                <input id="login-pass" class="form-control login-fields" type="password" name="password"><br>
                 <div class="login-button-frame">
                     <button id="login-button" class="btn btn-primary">Login</button>
                 </div>
             </form>
         </div>
-    </dive>
-
+    </div>
+<script src="JS/login.js"></script>
 </body>
 </html>
