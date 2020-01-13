@@ -23,9 +23,11 @@ public class LoginServlet extends HttpServlet{
       throws ServletException, IOException {
   }
   
+  @SuppressWarnings("finally")
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    //resp.sendRedirect(req.getContextPath() + "/EmployeeInfo.html");
     System.out.println("Reached POST servlet.");
     
     System.out.println(req.toString());
@@ -45,17 +47,15 @@ public class LoginServlet extends HttpServlet{
     
       if (exists) {
         Controller.service.setEmployee(user,pass);
-        System.out.println("Logged in!");
-        resp.sendRedirect("http://www.google.com");
-        System.out.println("Redirect Sent!");
-        return;
+        System.out.println("Logged in! URL = " + req.getContextPath() + "/EmployeeInfo.html");
+        resp.sendRedirect(req.getContextPath() + "/EmployeeInfo.html");
       }else {
         System.out.println("Log in failed.");
-        resp.sendRedirect("/project1/index.html");
-        return;
+        resp.sendRedirect(req.getContextPath() + "/index.html");
       }
     }finally {
       out.close();
+      return;
     }
     
   }

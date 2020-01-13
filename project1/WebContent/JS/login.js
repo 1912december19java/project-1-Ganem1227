@@ -7,7 +7,7 @@ let submit = document.getElementById("login-button");
 let myUri = "http://localhost:8080/project1/login";
 
 submit.addEventListener('click',(event)=>{
-    //event.preventDefault();
+    event.preventDefault();
     console.log("Login with: username: " + username.value + " | password: " + password.value);
     let user = username.value;
     let pass = password.value;
