@@ -28,8 +28,15 @@ public class LoginServlet extends HttpServlet{
       throws ServletException, IOException {
     System.out.println("Reached POST servlet.");
     
-    String user = req.getParameter("username");
-    String pass = req.getParameter("password");
+    System.out.println(req.toString());
+    
+    Employee employee = om.readValue(req.getReader(), Employee.class);
+    
+    String user = employee.getUsername();
+    String pass = employee.getPassword();
+    
+    System.out.println("SERVLET: username:" + user);
+    System.out.println("SERVLET: password:" + pass);
     
     PrintWriter out = resp.getWriter();
     boolean exists = Controller.service.validateAccount(user, pass);
@@ -39,7 +46,8 @@ public class LoginServlet extends HttpServlet{
       if (exists) {
         Controller.service.setEmployee(user,pass);
         System.out.println("Logged in!");
-        resp.sendRedirect("/project1/EmployeeInfo.html");
+        resp.sendRedirect("http://www.google.com");
+        System.out.println("Redirect Sent!");
         return;
       }else {
         System.out.println("Log in failed.");

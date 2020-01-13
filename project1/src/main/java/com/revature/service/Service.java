@@ -26,9 +26,11 @@ public class Service {
   
   //tests if the account is valid, if it's valid it will return the userID
   public boolean validateAccount(String user, String passcode) {
+    System.out.println("Service: user = " + user + " | passcode = " + passcode);
     int curr_id = dao.verifyLogin(user, passcode);
     
-    if(curr_id != 0) {
+    if(curr_id != -1) {
+      System.out.println("curr_ID = " + curr_id);
       employee.setEmployeeId(curr_id);
       return true;
     }else return false;

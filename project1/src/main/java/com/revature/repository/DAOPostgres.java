@@ -23,9 +23,10 @@ public class DAOPostgres implements DAO{
     
     PreparedStatement stmt;
     ResultSet rs;
+    System.out.println("DAO Postgres: username: " + user + " | password: " + pass);
     
     try {
-      stmt = conn.prepareStatement("SELECT id FROM account WHERE username = ? AND passcode = ?");
+      stmt = conn.prepareStatement("SELECT employee_id FROM accounts WHERE username = ? AND passcode = ?");
       stmt.setString(1, user);
       stmt.setString(2, pass);
       stmt.execute();
@@ -34,13 +35,12 @@ public class DAOPostgres implements DAO{
       
       if(rs.next()) {
         //stmt.close();
-        return rs.getInt("id");
+        System.out.println("DAO Postgres : " + rs.getInt("employee_id"));
+        return rs.getInt("employee_id");
       } else return -1;
     }catch(SQLException e) {
-      
+      return -1;
     }
-    
-    return -1;
   }
 
   public String getEmployeeInformation(String field, int id) {
