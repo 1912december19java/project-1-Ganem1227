@@ -25,7 +25,7 @@ public class DAOPostgres implements DAO{
     ResultSet rs;
     
     try {
-      stmt = conn.prepareStatement("SELECT id FROM account WHERE username = ?, passcode = ?");
+      stmt = conn.prepareStatement("SELECT id FROM account WHERE username = ? AND passcode = ?");
       stmt.setString(1, user);
       stmt.setString(2, pass);
       stmt.execute();
@@ -35,7 +35,7 @@ public class DAOPostgres implements DAO{
       if(rs.next()) {
         //stmt.close();
         return rs.getInt("id");
-      }
+      } else return -1;
     }catch(SQLException e) {
       
     }

@@ -14,6 +14,7 @@ public class Service {
   public Service() {
     reimb = new Reimbursement();
     dao = new DAOPostgres();
+    employee = new Employee();
   }
   
   //adds new RB to DB
@@ -24,9 +25,13 @@ public class Service {
   }
   
   //tests if the account is valid, if it's valid it will return the userID
-  public int validateAccount(String user, String passcode) {
-    employee.setEmployeeId(dao.verifyLogin(user, passcode));
-    return employee.getEmployeeId();
+  public boolean validateAccount(String user, String passcode) {
+    int curr_id = dao.verifyLogin(user, passcode);
+    
+    if(curr_id != 0) {
+      employee.setEmployeeId(curr_id);
+      return true;
+    }else return false;
   }
   
   //allows managers to resolve RB
@@ -57,7 +62,10 @@ public class Service {
     this.employee = employee;
   }
   
-  
+  public void setEmployee(String user, String pass) {
+    employee.setUsername(user);
+    employee.setPassword(pass);
+  }
   
   
 }

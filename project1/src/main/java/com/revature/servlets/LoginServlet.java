@@ -1,6 +1,7 @@
 package com.revature.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,22 +21,34 @@ public class LoginServlet extends HttpServlet{
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    System.out.println("Reached GET");
-    System.out.println(req);
-    System.out.println("Reached GET with " + req.getMethod() + " and " + req.getRequestURI());
-    System.out.println("Reached GET with " + req.getParameterMap().keySet());
-    
-    System.out.println("Username: " + req.getParameter("username") + " | password: " + req.getParameter("password"));
-    
-    Controller.service.validateAccount(req.getParameter("username"), req.getParameter("password"));
   }
   
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     System.out.println("Reached POST servlet.");
-    Employee employee = om.readValue(req.getReader(), Employee.class);
-    Controller.service.setEmployee(employee);
-    System.out.println("Received: " + employee);
+    
+    String user = req.getParameter("username");
+    String pass = req.getParameter("password");
+    
+    PrintWriter out = resp.getWriter();
+    boolean exists = Controller.service.validateAccount(user, pass);
+    
+    try {
+    
+      if (exists) {
+        Controller.service.setEmployee(user,pass);
+        System.out.println("Logged in!");
+        resp.sendRedirect("/project1/EmployeeInfo.html");
+        return;
+      }else {
+        System.out.println("Log in failed.");
+        resp.sendRedirect("/project1/index.html");
+        return;
+      }
+    }finally {
+      out.close();
+    }
+    
   }
 }

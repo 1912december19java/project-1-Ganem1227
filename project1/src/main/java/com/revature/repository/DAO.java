@@ -18,4 +18,5 @@ public interface DAO {
   public boolean testInDatabase(String primaryKey);
   
   public PreparedStatement stageAndCommitStatement(String statement, Object... objects );
+  
 }
