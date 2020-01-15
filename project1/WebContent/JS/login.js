@@ -4,7 +4,7 @@ let username = document.getElementById("login-user");
 let password = document.getElementById("login-pass");
 let submit = document.getElementById("login-button");
 
-let myUri = "http://localhost:8080/project1/login";
+let myUri = "http://localhost:8080/project1/api/login";
 
 submit.addEventListener('click',(event)=>{
     event.preventDefault();
@@ -12,7 +12,7 @@ submit.addEventListener('click',(event)=>{
     let user = username.value;
     let pass = password.value;
     if (user != '' && pass != '') {
-        sendLogin();
+        sendLogin()
     }
 });
 
@@ -25,5 +25,8 @@ async function sendLogin() {
     console.log("loginCredits: " + loginCredits);
   
     let response = await fetch(myUri, { method: 'POST', body: JSON.stringify(loginCredits) });
+    let newURL = await response.url;
+    window.location.href = newURL;
     console.log(response);
+    console.log(newURL);
   };

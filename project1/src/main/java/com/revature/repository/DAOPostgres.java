@@ -1,10 +1,13 @@
 package com.revature.repository;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import com.revature.model.Employee;
 import com.revature.model.Reimbursement;
 
 public class DAOPostgres implements DAO{
@@ -192,4 +195,87 @@ public class DAOPostgres implements DAO{
     }
   }
 
+  public Employee getAllEmployeeInformation(int id) {
+    PreparedStatement stmt;
+    ResultSet rs;
+    Employee employee = new Employee();
+    
+    try {
+      stmt = conn.prepareStatement("SELECT * FROM employee WHERE id = ?");
+      stmt.setInt(1, id);
+      stmt.execute();
+      
+      rs = stmt.getResultSet();
+      
+      if(rs.next()) {
+        employee.setFirstName(rs.getString("first_name"));
+        employee.setLastName(rs.getString("last_name"));
+        employee.setEmail(rs.getString("email"));
+        employee.setJob(rs.getString("job_title"));
+        employee.setManagerId(rs.getInt("manager_id"));
+        return employee;
+      }else {
+        return null;
+      }
+      
+    }catch(SQLException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+  
+  public String getManagerOfEmployee(int id) {
+    PreparedStatement stmt;
+    ResultSet rs;
+    
+    try {
+      stmt = conn.prepareStatement("SELECT first_name, last_name FROM employee WHERE id = ?");
+      stmt.setInt(1, id);
+      stmt.execute();
+      
+      rs = stmt.getResultSet();
+      
+      if(rs.next()) {
+        System.out.println(rs.getString("first_name") + " " + rs.getString("last_name"));
+        return rs.getString("first_name") + " " + rs.getString("last_name");
+      }else {
+        return "N/A";
+      }
+    }catch(SQLException e) {
+      e.printStackTrace();
+      return "N/A";
+    }
+  }
+  
+  public ArrayList<Reimbursement> getAllReimbursements(Employee employee){
+    PreparedStatement stmt;
+    ResultSet rs;
+    ArrayList<Reimbursement> result = new ArrayList<Reimbursement>();
+    
+    try {
+      stmt = conn.prepareStatement("SELECT * FROM reimbursements WHERE employee_id = ?");
+      stmt.setInt(1, employee.getEmployeeId());
+      
+      stmt.execute();
+      rs = stmt.getResultSet();
+      
+      while(rs.next()) {
+        Reimbursement newReimburse = new Reimbursement();
+        newReimburse.setManager_id(employee.getManagerId());
+        newReimburse.setNotes(rs.getString("Notes"));
+        newReimburse.setOwner_id(rs.getInt("employee_id"));
+        newReimburse.setStatus(rs.getString("status"));
+        newReimburse.setValue(rs.getDouble("value"));
+        newReimburse.setTimestamp(rs.getString("date_submitted"));
+        result.add(newReimburse);
+      }
+      
+      return result;
+      
+    }catch(SQLException e) {
+      e.printStackTrace();
+      return result;
+    }
+  }
+  
 }

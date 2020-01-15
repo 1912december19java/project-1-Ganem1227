@@ -1,6 +1,8 @@
 package com.revature.repository;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import com.revature.model.Employee;
 import com.revature.model.Reimbursement;
 
 public interface DAO {
@@ -18,5 +20,11 @@ public interface DAO {
   public boolean testInDatabase(String primaryKey);
   
   public PreparedStatement stageAndCommitStatement(String statement, Object... objects );
+  
+  public Employee getAllEmployeeInformation(int id);
+  
+  public String getManagerOfEmployee(int id);
+  
+  public ArrayList<Reimbursement> getAllReimbursements(Employee employee);
   
 }

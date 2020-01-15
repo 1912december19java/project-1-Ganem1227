@@ -7,6 +7,7 @@ public class Employee {
   private int employeeId;
   private String job;
   private int managerId;
+  private String managerName;
   private String username;
   private String password;
   
@@ -18,6 +19,7 @@ public class Employee {
     job = "";
     employeeId = -1;
     managerId = -1;
+    managerName = "";
   }
 
   public void clearAllFields() {
@@ -27,7 +29,7 @@ public class Employee {
     employeeId = -1;
     job = "";
     managerId = -1;
-    
+    managerName = "";
   }
   
   public String getFirstName() {
@@ -77,8 +79,14 @@ public class Employee {
   public void setManagerId(int managerId) {
     this.managerId = managerId;
   }
-  
-  
+
+  public String getManagerName() {
+    return managerName;
+  }
+
+  public void setManagerName(String managerName) {
+    this.managerName = managerName;
+  }
 
   public String getUsername() {
     return username;
@@ -99,11 +107,9 @@ public class Employee {
   @Override
   public String toString() {
     return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-        + ", employeeId=" + employeeId + ", job=" + job + ", managerId=" + managerId + ", username="
-        + username + ", password=" + password + "]";
+        + ", employeeId=" + employeeId + ", job=" + job + ", managerId=" + managerId
+        + ", managerName=" + managerName + ", username=" + username + ", password=" + password
+        + "]";
   }
-
-  
-  
   
 }

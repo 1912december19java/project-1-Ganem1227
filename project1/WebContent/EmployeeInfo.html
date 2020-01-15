@@ -30,7 +30,7 @@
     <!--Header-->
     <header class="jumbotron">
         <div class="container">
-            <h1>Welcome, <span class="employee-welcome">EMPLOYEE_NAME</span></h1>
+            <h1>Welcome, <span class="employee-welcome name"></span></h1>
         </div>
     </header>
 
@@ -38,31 +38,38 @@
     <main>
         <div class="row justify-content-center">
             <div class="col-sm-10 content-panel">
-                <div class="info-container">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><p class="info-fields">Name: </p></td>
-                                <td><p id="name">EMPLOYEE_NAME</p></td>
-                            </tr>
-                            <tr>
-                                <td><p class="info-fields">Job Title: </p></td>
-                                <td><p id="job">JOB_TITLE</p></td>
-                            </tr>
-                            <tr>
-                                <td><p class="info-fields">Email: </p></td>
-                                <td><p id="email">EMAIL</p></td>
-                            </tr>
-                            <tr>
-                                <td><p class="info-fields">Manager: </p></td>
-                                <td><p id="manager">MANAGER_NAME</p></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>  
+                <div class="col-sm-5">
+                    <div class="info-container">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><p class="info-fields">Name: </p></td>
+                                    <td><p class = "name"></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p class="info-fields">Job Title: </p></td>
+                                    <td><p id="job"></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p class="info-fields">Email: </p></td>
+                                    <td><p id="email"></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p class="info-fields">Manager: </p></td>
+                                    <td><p id="manager"></p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <img src="" alt="">
+                </div>
             </div>
         </div>
     </main>
+
+    <script src="JS/infoPage.js"></script>
     
 </body>
 </html>

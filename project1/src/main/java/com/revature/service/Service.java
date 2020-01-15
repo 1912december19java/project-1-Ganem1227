@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.util.ArrayList;
 import com.revature.model.Employee;
 import com.revature.model.Reimbursement;
 import com.revature.repository.DAOPostgres;
@@ -22,6 +23,10 @@ public class Service {
     reimb.setManager_id(employee.getManagerId());
     reimb.setOwner_id(employee.getEmployeeId());
     dao.addReimbursement(reimb);
+  }
+  
+  public ArrayList<Reimbursement> getAllReimbursements() {
+    return dao.getAllReimbursements(employee);
   }
   
   //tests if the account is valid, if it's valid it will return the userID
@@ -69,5 +74,17 @@ public class Service {
     employee.setPassword(pass);
   }
   
+  public void populateEmployee() {
+    Employee temp = dao.getAllEmployeeInformation(employee.getEmployeeId());
+    employee.setFirstName(temp.getFirstName());
+    employee.setLastName(temp.getLastName());
+    employee.setEmail(temp.getEmail());
+    employee.setJob(temp.getJob());
+    employee.setManagerId(temp.getManagerId());
+    employee.setManagerName(getManagerName());
+  }
   
+  public String getManagerName() {
+    return dao.getManagerOfEmployee(employee.getManagerId());
+  }
 }
