@@ -5,6 +5,7 @@ let resolvedTable = document.getElementById("resolved-content");
 let add = document.getElementById("addnew");
 let navbar = document.getElementById("default-navbar");
 let currManagerSet;
+let displayList = [];
 
 let pFilterButton = document.getElementById("pendingApplyFilters");
 let rFilterButton = document.getElementById("resolvedApplyFilters");
@@ -65,6 +66,7 @@ function loadPendingSet(){
     console.log(pFieldFilters.value);
     if(pFieldFilters.value){
       if(pFieldFilters.value == i.owner_id){
+        displayList.push(i);
         let newRow = document.createElement("tr")
         newRow.innerHTML = `<td>${i.owner_id}</td><td>${i.timestamp}</td><td>$${i.value}</td><td>${i.notes}</td><td><a target="_blank" href="#" onClick='openImage(this)'><img src="${i.receipt}" style="width : 50%;"></a></td>
         <td>
@@ -76,6 +78,7 @@ function loadPendingSet(){
         table.appendChild(newRow);
       }
     }else{
+      displayList.push(i);
       let newRow = document.createElement("tr")
         newRow.innerHTML = `<td>${i.owner_id}</td><td>${i.timestamp}</td><td>$${i.value}</td><td>${i.notes}</td><td><a target="_blank" href="#" onClick='openImage(this)'><img src="${i.receipt}" style="width : 50%;"></a></td>
         <td>
