@@ -62,6 +62,7 @@ function separateSets(){
 
 function loadPendingSet(){
 
+  displayList = [];
   for(let i of pendingList){
     console.log(pFieldFilters.value);
     if(pFieldFilters.value){
@@ -149,7 +150,7 @@ add.addEventListener('click', (event)=>{
   for(let i = 0; i < managerList.length; i++){
     console.log(managerList[i].options[managerList[i].selectedIndex].value);
     if (managerList[i].options[managerList[i].selectedIndex].value != "Pending"){
-      pendingList[i].status = managerList[i].options[managerList[i].selectedIndex].value;
+      displayList[i].status = managerList[i].options[managerList[i].selectedIndex].value;
     }
   }
 
@@ -162,7 +163,7 @@ add.addEventListener('click', (event)=>{
 async function sendUpdates(){
   console.log(pendingList);
   let updatePacket = {};
-  updatePacket.reimburse = pendingList;
+  updatePacket.reimburse = displayList;
   let response = await fetch('http://localhost:8080/project1/api/updateReimb', {method : 'POST' , body : JSON.stringify(updatePacket)});
   window.location.href = '/project1/ManagerReimbursement.html';
 }
