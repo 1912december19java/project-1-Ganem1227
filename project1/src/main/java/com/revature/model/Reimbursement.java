@@ -1,18 +1,23 @@
 package com.revature.model;
 
+import java.io.File;
+
 public class Reimbursement {
   private String notes;
+  private int reimbId;
   private double value;
   private int ownerId;
   private int managerId;
   private String timestamp;
   private String status;
+  private String receipt;
   
   public Reimbursement() {
     super();
     notes = "";
     value = 0.0;
-    status = "";
+    status = "Pending";
+    setReimbId(0);
   }
   
   public void clearAllFields() {
@@ -21,7 +26,8 @@ public class Reimbursement {
     ownerId = -1;
     managerId = -1;
     timestamp = "";
-    status = "";
+    status = "Pending";
+    setReimbId(0);
   }
 
   public String getNotes() {
@@ -70,6 +76,22 @@ public class Reimbursement {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public String getReceipt() {
+    return receipt;
+  }
+
+  public void setReceipt(String receipt) {
+    this.receipt = receipt;
+  }
+
+  public int getReimbId() {
+    return reimbId;
+  }
+
+  public void setReimbId(int reimbId) {
+    this.reimbId = reimbId;
   }
   
   

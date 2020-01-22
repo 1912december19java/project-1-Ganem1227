@@ -10,6 +10,7 @@ public class Employee {
   private String managerName;
   private String username;
   private String password;
+  private String photo;
   
   public Employee() {
     super();
@@ -110,6 +111,14 @@ public class Employee {
         + ", employeeId=" + employeeId + ", job=" + job + ", managerId=" + managerId
         + ", managerName=" + managerName + ", username=" + username + ", password=" + password
         + "]";
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
   
 }

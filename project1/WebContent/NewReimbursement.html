@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="CSS/bootstrap.min.css">
     <link rel="stylesheet" href="CSS/defaultNavbarStyle.css">
     <link rel="stylesheet" href="CSS/reimburseMain.css">
-    <link rel = "icon" href = "Images/RevatureLogo.png" type = "image/x-icon"> 
+    <link rel = "icon" href = "Images/RevatureLogo.png" type = "image/x-icon">
 </head>
 <body>
     <!--Navbar-->
@@ -38,49 +38,38 @@
         <div class="row justify-content-center">
             
             <div class="col-md-10 table-container">
-                <div>
-                    <form>
-                        <label>Filter By: </label>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="Pending" id="pendingFilter">
-                                <label for="Pending">Pending </label>
-                            </div>
-                            
-                            <div class="col-lg-2">
-                                <input type="checkbox" name="Resolved" id="resolvedFilter">
-                                <label for="Resolved">Resolved </label>
-                            </div>
-                            <div class="col-lg-2">
-                                <button class="btn btn-primary" id="filterButton">Apply Filters</button>
-                            </div>
-
-                            <div class="col-lg-2">
-                                <button class="btn btn-primary" id="addnew">Add + </button>
-                            </div>
-                        </div>
-                        
-                        
-                    </form>
-                </div>
-                <table id="tableForm">
+                <table id='tableForm'>
                     <thead>
                         <tr>
-                            <th>Date</th>
                             <th>Amount</th>
                             <th>Reason</th>
-                            <th>Receipt</th>
-                            <th>Status</th>
+                            <th>Photo of Receipt</th>
                         </tr>
                     </thead>
                     <tbody id="reimburse-content">
+                        <form>
+                            <tr>
+                                <td>
+                                    <input type="number" name='Value' id='amount'>
+                                </td>
+                                <td>
+                                    <input type="text" name='Reason' id='notes'>
+                                 </td>
+                                 <td>
+                                    <input type="file" name='Photo' id='receipt' accept="image/png, image/jpeg">
+                                </td>
+                            </tr>
+                        </form>
                     </tbody>
                 </table>
+                <button class="btn btn-primary" id='Submit'>Submit</button>
             </div>
             
         </div>
     </main>
-    <script src="JS/reimburse.js"></script>
     <script src="JS/logout.js"></script>
+    <script src="JS/addNewReimbursement.js"></script>
+</body>
+    
 </body>
 </html>

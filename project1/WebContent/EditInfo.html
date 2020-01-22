@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Info</title>
+
+    <link rel="stylesheet" href="CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/defaultNavbarStyle.css">
+    <link rel="stylesheet" href="CSS/infoPage.css">
+    <link rel = "icon" href = "Images/RevatureLogo.png" type = "image/x-icon"> 
+</head>
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-sm navbar-fixed-top" id="default-navbar">
+        <div class="container">
+            <a class="navbar-branch" href="https://revature.com/">
+                <img id="logo" class="img-fluid" src="Images/logo.png" alt="Revature.png">
+            </a>
+            <div>
+                <ul class="navbar-nav nav-pills" id="navbar-list">
+                    <li class="navbar-item"><a href="EmployeeInfo.html" class="nav-link active">Profile</a></li>
+                    <li class="navbar-item"><a class="nav-link" href="Reimburse.html">Reimbursements</a></li>
+                    <li class="navbar-item"><a class="nav-link logout" href="index.html">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Header-->
+    <header class="jumbotron">
+        <div class="container">
+            <h1>Edit Employee Information<span class="employee-welcome"></span></h1>
+        </div>
+    </header>
+    <!--Content-->
+    <main>
+        <div class="row justify-content-center">
+            <div class="col-md-10 content-panel">
+                <div class="row justify-content-center">
+                    <div class="col-sm-5">
+                        <div class="info-container">
+                            <div class="row">
+                                <form>
+                                    <input type="text" class="specialInfo" id="first-name" name="first-name" placeholder="First Name">
+                                    <input type="text" class="specialInfo" id="last-name" name="last-name" placeholder="Last Name"><br>
+                                    <input type="text" class="generalInfo" id="job-position" name="job-position" placeholder="Job Position"><br>
+                                    <input type="text" class="generalInfo" id="email" name="email" placeholder="email@email.com">
+                                </form>
+                            </div>
+                            <div class="row">
+                                <button id="save" class="btn btn-primary spacing">Save Changes</button>
+                                <button id="cancel" class="btn btn-primary spacing">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="info-container">
+                            <img class="img-fluid cropped" src="Images/Chopin.jpg" alt="EmployeePhoto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="JS/editInfo.js"></script>
+</body>
+</html>

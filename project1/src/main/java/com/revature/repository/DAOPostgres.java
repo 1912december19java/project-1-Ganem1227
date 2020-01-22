@@ -1,6 +1,7 @@
 package com.revature.repository;
 
 import java.awt.List;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -75,11 +76,13 @@ public class DAOPostgres implements DAO{
     PreparedStatement stmt;
     
     try {
-      stmt = conn.prepareStatement("INSERT INTO reimbursements (employee_id,value,notes,manager_id,status) VALUES (?,?,?,?,?)");
+      stmt = conn.prepareStatement("INSERT INTO reimbursements (employee_id,value,notes,manager_id,status,receipt) VALUES (?,?,?,?,?,?)");
       stmt.setInt(1, newEntry.getOwner_id());
-      stmt.setString(2, newEntry.getNotes());
-      stmt.setInt(3, newEntry.getManager_id());
-      stmt.setString(4, newEntry.getStatus());
+      stmt.setDouble(2, newEntry.getValue());
+      stmt.setString(3, newEntry.getNotes());
+      stmt.setInt(4, newEntry.getManager_id());
+      stmt.setString(5, newEntry.getStatus());
+      stmt.setString(6, newEntry.getReceipt());
       
       stmt.execute();
       stmt.close();
@@ -92,25 +95,18 @@ public class DAOPostgres implements DAO{
   public boolean resolveReimbursement(String status, int id) {
     PreparedStatement stmt;
     ResultSet rs;
+    System.out.println("DAO: " + status + " | " + id);
     
     try {
-      stmt = conn.prepareStatement("UPDATE reimbursement SET status = ? WHERE employee_id = ?");
+      stmt = conn.prepareStatement("UPDATE reimbursements SET status = ? WHERE id = ?");
       stmt.setString(1, status);
       stmt.setInt(2, id);
       stmt.execute();
       
-      rs = stmt.getResultSet();
-      
-      if(rs.next()) {
-        stmt.close();
-        return true;
-      }else { 
-        stmt.close();
-        return false;
-      }
+      return true;
       
     }catch(SQLException e) {
-      
+      e.printStackTrace();
     }
     return false;
   }
@@ -213,6 +209,7 @@ public class DAOPostgres implements DAO{
         employee.setEmail(rs.getString("email"));
         employee.setJob(rs.getString("job_title"));
         employee.setManagerId(rs.getInt("manager_id"));
+        employee.setPhoto(rs.getString("picture"));
         return employee;
       }else {
         return null;
@@ -267,15 +264,101 @@ public class DAOPostgres implements DAO{
         newReimburse.setStatus(rs.getString("status"));
         newReimburse.setValue(rs.getDouble("value"));
         newReimburse.setTimestamp(rs.getString("date_submitted"));
+        newReimburse.setReimbId(rs.getInt("id"));
+        newReimburse.setReceipt(rs.getString("receipt"));
         result.add(newReimburse);
       }
+      stmt.close();
+      rs.close();
+      
+    }catch(SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public ArrayList<Reimbursement> getAllReimbursementsManager(Employee employee){
+    PreparedStatement stmt;
+    ResultSet rs;
+    ArrayList<Reimbursement> result = new ArrayList<Reimbursement>();
+    
+    try {
+      stmt = conn.prepareStatement("SELECT * FROM reimbursements WHERE manager_id = ?");
+      stmt.setInt(1, employee.getEmployeeId());
+      
+      stmt.execute();
+      rs = stmt.getResultSet();
+      
+      while(rs.next()) {
+        Reimbursement newReimburse = new Reimbursement();
+        newReimburse.setManager_id(rs.getInt("manager_id"));
+        newReimburse.setNotes(rs.getString("Notes"));
+        newReimburse.setOwner_id(rs.getInt("employee_id"));
+        newReimburse.setStatus(rs.getString("status"));
+        newReimburse.setValue(rs.getDouble("value"));
+        newReimburse.setTimestamp(rs.getString("date_submitted"));
+        newReimburse.setReimbId(rs.getInt("id"));
+        newReimburse.setReceipt(rs.getString("receipt"));
+        result.add(newReimburse);
+      }
+      stmt.close();
+      rs.close();
+      
+    }catch(SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public void updateEmployeeInfo(Employee newEmployee) {
+    PreparedStatement stmt;
+    
+    try {
+      stmt = conn.prepareStatement("UPDATE employee SET first_name = ?, last_name = ?, email = ?, job_title = ? WHERE id = ?");
+      stmt.setString(1, newEmployee.getFirstName());
+      stmt.setString(2, newEmployee.getLastName());
+      stmt.setString(3, newEmployee.getEmail());
+      stmt.setString(4, newEmployee.getJob());
+      stmt.setInt(5, newEmployee.getEmployeeId());
+      
+      stmt.execute();
+      stmt.close();
+    }catch(SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public ArrayList<Employee> getEmployeesOfManager(Employee manager) {
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    ArrayList<Employee> result = new ArrayList<Employee>();
+    
+    try {
+      stmt = conn.prepareStatement("SELECT * FROM employee WHERE manager_id = ?");
+      stmt.setInt(1, manager.getEmployeeId());
+      stmt.execute();
+      
+      rs = stmt.getResultSet();
+      
+      while(rs.next()) {
+        Employee newEmployee = new Employee();
+        newEmployee.setEmail(rs.getString("email"));
+        newEmployee.setEmployeeId(rs.getInt("id"));
+        newEmployee.setFirstName(rs.getString("first_name"));
+        newEmployee.setLastName(rs.getString("last_name"));
+        newEmployee.setJob(rs.getString("job_title"));
+        result.add(newEmployee);
+      }
+      rs.close();
+      stmt.close();
       
       return result;
       
     }catch(SQLException e) {
       e.printStackTrace();
-      return result;
     }
+    return null;
   }
   
 }

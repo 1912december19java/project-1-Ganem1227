@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.revature.model.Employee;
 import com.revature.model.Reimbursement;
+import com.revature.model.ReimbursementContainer;
 import com.revature.service.Service;
 
 @WebServlet(name = "FrontController", urlPatterns = {"/api/*"})
@@ -38,27 +40,10 @@ public class FrontController extends HttpServlet{
     String[] tokens = req.getRequestURI().split("/");
     
     if(tokens[3].equals("reimbursements")){
-      //ArrayList<String> packet = new ArrayList<String>();
-      ArrayList<Reimbursement> content = service.getAllReimbursements();      //Get all comics example, could be useful for reimbursements
+      ReimbursementContainer packet = new ReimbursementContainer(service.getAllReimbursements());
       System.out.println("Reached Servlet reimbursements");
-      /*
-      for (int i = 0; i < content.size(); i++) {
-        packet.add(om.writeValueAsString(content.get(i)));
-      }
-      */
       
-      //System.out.println(packet);
-      
-      
-      
-      req.setAttribute("mylist", content);
-
-      req.getRequestDispatcher("Reimburse.html").forward(req, resp);
-      resp.sendRedirect("Reimburse.html");
-      
-      
-      
-      //resp.getWriter().write(om.writeValueAsString(content));
+      resp.getWriter().write(om.writeValueAsString(packet));
       
       if (tokens.length > 4) {
         //get a specific set of reimbursements
@@ -67,13 +52,20 @@ public class FrontController extends HttpServlet{
       } else {
         //get all otherwise
       }
-      
-      resp.getWriter().write(om.writeValueAsString("")); //final step but really you should put it
-      //in one of the if blocks.
     }else if(tokens[3].equals("employeeInfo")) {
       System.out.println("Reached Servlet employeeInfo");
       //System.out.println(om.writeValueAsString(service.getEmployee()));
       resp.getWriter().write(om.writeValueAsString(service.getEmployee()));
+    }else if(tokens[3].equals("logout")) {
+      logout(req, resp);
+    }else if(tokens[3].equals("ManagerReimb")){
+      System.out.println("Reached Servlet ManagerReimb");
+      ReimbursementContainer packet = new ReimbursementContainer(service.getAllManagerReimbursement());
+      resp.getWriter().write(om.writeValueAsString(packet));
+    }else if(tokens[3].equals("employeeList")) {
+      System.out.println("Reached Servlet employeeList");
+      ArrayList<Employee> packet = service.getEmployeesOfManager();
+      resp.getWriter().write(om.writeValueAsString(packet));
     }
   }
   
@@ -87,7 +79,23 @@ public class FrontController extends HttpServlet{
       case "login" : 
         login(req, resp);
         break;
-      
+      case "editInfo" :
+        System.out.println("Reached editInfo");
+        Employee temp = om.readValue(req.getReader(), Employee.class);
+        service.updateEmployeeInfo(temp);
+        break;
+      case "newReimb" :
+        System.out.println("Reached newReimb");
+        Reimbursement newReimb = om.readValue(req.getReader(), Reimbursement.class);
+        //System.out.println(newReimb.getReceipt());
+        service.addNewReimburse(newReimb);
+        break;
+      case "updateReimb" :
+        System.out.println("reached updateReimb");
+        ReimbursementContainer newEntry = om.readValue(req.getReader(), ReimbursementContainer.class);
+        System.out.println(newEntry.getReimburse());
+        service.updateReimbSet(newEntry);
+        break;
     }
   }
   
@@ -109,6 +117,7 @@ public class FrontController extends HttpServlet{
       if (exists) {
         service.setEmployee(user,pass);
         service.populateEmployee();
+        System.out.println(req.getContextPath());
         resp.sendRedirect(req.getContextPath() + "/EmployeeInfo.html");
       }else {
         resp.sendRedirect(req.getContextPath() + "/index.html");
@@ -119,4 +128,9 @@ public class FrontController extends HttpServlet{
     }
   }
 
+
+  private void logout(HttpServletRequest req, HttpServletResponse resp) 
+      throws ServletException, IOException{
+    service.resetAllContainers();
+  }
 }

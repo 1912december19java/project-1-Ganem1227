@@ -27,4 +27,8 @@ public interface DAO {
   
   public ArrayList<Reimbursement> getAllReimbursements(Employee employee);
   
+  public void updateEmployeeInfo(Employee newEmployee);
+  
+  public ArrayList<Employee> getEmployeesOfManager(Employee manager);
+  
 }

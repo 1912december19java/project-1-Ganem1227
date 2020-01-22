@@ -1,75 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Employee Information</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Employee Information</title>
 
-    <link rel="stylesheet" href="CSS/bootstrap.min.css">
-    <link rel="stylesheet" href="CSS/defaultNavbarStyle.css">
-    <link rel="stylesheet" href="CSS/infoPage.css">
-    <link rel = "icon" href = "Images/RevatureLogo.png" type = "image/x-icon"> 
-</head>
-<body>
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-sm navbar-fixed-top" id="default-navbar">
-        <div class="container">
-            <a class="navbar-branch" href="https://revature.com/">
-                <img id="logo" class="img-fluid" src="Images/logo.png" alt="Revature.png">
-            </a>
-            <div>
-                <ul class="navbar-nav nav-pills">
-                    <li class="navbar-item"><a href="EmployeeInfo.html" class="nav-link active">Profile</a></li>
-                    <li class="navbar-item"><a class="nav-link" href="Reimburse.html">Reimbursements</a></li>
-                    <li class="navbar-item"><a class="nav-link logout" href="index.html">Log Out</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!--Header-->
-    <header class="jumbotron">
-        <div class="container">
-            <h1>Welcome, <span class="employee-welcome name"></span></h1>
-        </div>
-    </header>
-
-    <!--Content-->
-    <main>
-        <div class="row justify-content-center">
-            <div class="col-sm-10 content-panel">
-                <div class="col-sm-5">
-                    <div class="info-container">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td><p class="info-fields">Name: </p></td>
-                                    <td><p class = "name"></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p class="info-fields">Job Title: </p></td>
-                                    <td><p id="job"></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p class="info-fields">Email: </p></td>
-                                    <td><p id="email"></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p class="info-fields">Manager: </p></td>
-                                    <td><p id="manager"></p></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <img src="" alt="">
+        <link rel="stylesheet" href="CSS/bootstrap.min.css">
+        <link rel="stylesheet" href="CSS/defaultNavbarStyle.css">
+        <link rel="stylesheet" href="CSS/infoPage.css">
+        <link rel = "icon" href = "Images/RevatureLogo.png" type = "image/x-icon"> 
+    </head>
+    <body>
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-sm navbar-fixed-top" id="default-navbar">
+            <div class="container">
+                <a class="navbar-branch" href="https://revature.com/">
+                    <img id="logo" class="img-fluid" src="Images/logo.png" alt="Revature.png">
+                </a>
+                <div>
+                    <ul class="navbar-nav nav-pills" id="navbar-list">
+                        <li class="navbar-item"><a href="EmployeeInfo.html" class="nav-link active">Profile</a></li>
+                        <li class="navbar-item"><a class="nav-link" href="Reimburse.html">Reimbursements</a></li>
+                        <li class="navbar-item"><a class="nav-link logout" href="index.html">Log Out</a></li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </main>
+        </nav>
+        <!--Header-->
+        <header class="jumbotron">
+            <div class="container">
+                <h1>Welcome, <span id="name" class="employee-welcome"></span></h1>
+            </div>
+        </header>
 
-    <script src="JS/infoPage.js"></script>
-    
-</body>
+        <!--Content-->
+        <main>
+            <div class="row justify-content-center">
+                <div class="col-sm-10 content-panel">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-5">
+                            <div class="info-container">
+                                <div class="row">
+                                    <p id="firstName" class = "info-data-name">PlaceholderName</p>
+                                </div>
+                                <div class="row">
+                                    <p id="lastName" class = "info-data">PlaceholderLastName</p>
+                                </div>
+                                <div class="row">
+                                    <p id="job" class="info-data">PlaceholderJob</p>
+                                </div>
+                                <div class="row">
+                                    <p id="email" class="info-data">PlaceholderEmail</p>
+                                </div>
+                                <div class="row">
+                                    <p class="info-fields">Mgr: </p><p id="manager" class="info-data">PlaceholderMgr</p>
+                                </div>
+                                <div class="row">
+                                    <button id="editProfile" class="btn-primary spacing">Edit Profile</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="info-container">
+                                <img class="img-fluid cropped" id="employee-photo" src="Images/Chopin.jpg" alt="EmployeePhoto">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="row justify-content-center" id="manager-content">
+                <div class="col-lg-10 content-panel">
+                    <h2>Employees</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Job
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="employee-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script src="JS/infoPage.js"></script>
+        <script src="JS/logout.js"></script>
+    </body>
 </html>
