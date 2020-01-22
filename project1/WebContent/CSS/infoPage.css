@@ -26,12 +26,12 @@ header {
 }
 
 .info-data {
-    margin-top : 0px;
+    margin : 0px;
     font-size : 22px;
 }
 
 .info-data-name {
-    margin-top : 0px;
+    margin : 0px;
     font-size : 28px;
     font-weight : bold;
 }
